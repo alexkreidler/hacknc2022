@@ -5,6 +5,8 @@ import styles from '../styles/Home.module.css'
 import CustomNavbar from "../components/CustomNavbar";
 import CustomFooter from "../components/CustomFooter"
 import CustomHero from "../components/CustomHero"
+import CustomMessenger from "../components/CustomMessenger"
+import CustomLS from "../components/CustomLS"
 import { Box, Flex } from '@chakra-ui/react';
 
 
@@ -18,7 +20,9 @@ export default function Home() {
       <Box flexGrow={1}>
 
         <CustomNavbar />
-        {/* <CustomHero /> */}
+        <CustomLS></CustomLS>
+        <CustomMessenger/>
+        
       </Box>
       <CustomFooter />
     </Flex>
