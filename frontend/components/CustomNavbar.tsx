@@ -63,7 +63,7 @@ import {
             </Flex>
           </Flex>
   
-          <Stack
+          {/* <Stack
             flex={{ base: 1, md: 0 }}
             justify={'flex-end'}
             direction={'row'}
@@ -88,7 +88,7 @@ import {
               }}>
               Sign Up
             </Button>
-          </Stack>
+          </Stack> */}
         </Flex>
   
         <Collapse in={isOpen} animateOpacity>
@@ -252,32 +252,22 @@ import {
   const NAV_ITEMS: Array<NavItem> = [
     {
       label: 'About',
-      children: [
-        {
-          label: 'Explore Design Work',
-          subLabel: 'Trending Design to inspire you',
-          href: '#',
-        },
-        {
-          label: 'New & Noteworthy',
-          subLabel: 'Up-and-coming Designers',
-          href: '#',
-        },
-      ],
+      href: '/'
     },
     {
       label: 'Have a conversation',
-      children: [
-        {
-          label: 'Type',
-          subLabel: 'Type to Lingua',
-          href: '#',
-        },
-        {
-          label: 'Speak',
-          subLabel: 'Speak to Lingua',
-          href: '#',
-        },
-      ],
+      href: '/conversation'
+      // children: [
+      //   {
+      //     label: 'Type',
+      //     subLabel: 'Type to Lingua',
+      //     href: '#',
+      //   },
+      //   {
+      //     label: 'Speak',
+      //     subLabel: 'Speak to Lingua',
+      //     href: '#',
+      //   },
+      // ],
     },
   ];
