@@ -99,18 +99,7 @@ import {
               boxShadow={'2xl'}
               width={'full'}
               overflow={'hidden'}>
-              <IconButton
-                aria-label={'Play Button'}
-                variant={'ghost'}
-                _hover={{ bg: 'transparent' }}
-                icon={<PlayIcon w={12} h={12} />}
-                size={'lg'}
-                color={'white'}
-                position={'absolute'}
-                left={'50%'}
-                top={'50%'}
-                transform={'translateX(-50%) translateY(-50%)'}
-              />
+              
               <Image
                 alt={'Hero Image'}
                 fit={'cover'}
@@ -118,8 +107,7 @@ import {
                 w={'100%'}
                 h={'100%'}
                 src={
-                  'https://images.unsplash.com/photo-1499951360447-b19https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/world-flags-collage-hasan-ahmed.jpgbe8fe80f5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=800&q=80'
-                }
+                    'https://images.unsplash.com/photo-1592487501226-7ed5e5dc80f2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80'}
               />
             </Box>
           </Flex>
@@ -147,7 +135,8 @@ import {
           fillRule="evenodd"
           clipRule="evenodd"
           d="M239.184 439.443c-55.13-5.419-110.241-21.365-151.074-58.767C42.307 338.722-7.478 282.729.938 221.217c8.433-61.644 78.896-91.048 126.871-130.712 34.337-28.388 70.198-51.348 112.004-66.78C282.34 8.024 325.382-3.369 370.518.904c54.019 5.115 112.774 10.886 150.881 49.482 39.916 40.427 49.421 100.753 53.385 157.402 4.13 59.015 11.255 128.44-30.444 170.44-41.383 41.683-111.6 19.106-169.213 30.663-46.68 9.364-88.56 35.21-135.943 30.551z"
-          fill="currentColor"
+          opacity='.2'
+          fill="#715AFF"
         />
       </Icon>
     );

@@ -5,14 +5,18 @@ import styles from '../styles/Home.module.css'
 import CustomNavbar from "../components/CustomNavbar";
 import CustomFooter from "../components/CustomFooter"
 import CustomHero from "../components/CustomHero"
+import { Box, Flex } from '@chakra-ui/react';
 
 
 export default function Home() {
   return (
-    <div>
-      <CustomNavbar />
-      <CustomHero />
+    <Flex minH="100vh" flexDir="column">
+      <Box flexGrow={1}>
+
+        <CustomNavbar />
+        <CustomHero />
+      </Box>
       <CustomFooter />
-    </div>
+    </Flex>
   )
 }
