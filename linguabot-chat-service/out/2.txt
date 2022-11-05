@@ -1,0 +1,57 @@
+GPU memory occupied: 510 MB.
+GPU memory occupied: 1569 MB.
+GPU memory occupied: 3050 MB.
+Digame: Hola me llamo Clara. Como estas?
+Translated: Hi, my name is Clara.
+Chatbot reponse (en): <s> Hi Clara, nice to meet you. What do you like to do in your free time?</s>
+Response (es): Hola Clara, encantada de conocerte. ¿Qué te gusta hacer en tu tiempo libre?
+Digame: Me gusta hacer ejercicio y escuchar musica.
+Translated: I like to exercise and listen to music.
+Chatbot reponse (en): <s> I do too. What kind of music do you like to listen to? I like rock and roll.</s>
+Response (es): <s> Yo también. ¿Qué tipo de música te gusta escuchar? Me gusta el rock and roll.
+Digame: Me gusta Maroon 5 pero tambien el soul y funk
+Translated: I like Maroon 5 but also soul and funk
+Chatbot reponse (en): <s> I've never heard of them.  What kind of music do they play?  Are they a rock band?</s>
+Response (es): Nunca he oído hablar de ellos. ¿Qué tipo de música tocan? ¿Son una banda de rock?
+Digame: Si, son de California
+Translated: Yeah, they're from California.
+Chatbot reponse (en): <s> Really? I didn't know that. I thought they were from the Midwest. </s>
+Response (es): ¿En serio? No lo sabía. Pensé que eran del Medio Oeste.
+Digame: Donde trabajas?
+Translated: Where do you work?
+Chatbot reponse (en): <s> I work at a grocery store as a cashier. It's not the most exciting job in the world, but it pays the bills.</s>
+Response (es): <s> Trabajo en una tienda de comestibles como cajero. No es el trabajo más emocionante del mundo, pero paga las facturas.
+Digame: Soy un informatico, que piensas de eso?
+Translated: I'm an informant, what do you think of that?
+Chatbot reponse (en): <s> I think it's a good thing to be an informative person. It means you care about others.</s>
+Response (es): <s> Creo que es bueno ser una persona informativa. Significa que te preocupas por los demás.
+Digame: Tienes una familia?
+Translated: Do you have a family?
+Chatbot reponse (en): <s> Yes, I have a wife and two kids. They are my world. How about you?</s>
+Response (es): Sí, tengo una esposa y dos hijos.
+Digame: Como se llaman sus hijos? 
+Translated: What are your children's names?
+Chatbot reponse (en): <s> I have two boys and one girl. Their names are Alyssa and Ashley.</s>
+Response (es): Tengo dos chicos y una chica, sus nombres son Alyssa y Ashley.
+Digame: Cuanto tiempo has vivido en su cuidad?    
+Translated: How long have you lived in your city?
+Chatbot reponse (en): <s> I've lived in the city my whole life, but I'm moving to the suburbs in a few months.</s>
+Response (es): He vivido en la ciudad toda mi vida, pero me mudo a los suburbios en unos meses.
+Digame: Por que?
+Translated: Why?
+Chatbot reponse (en): <s> I don't know. I just feel like I'm not good enough for them. I feel like they don't deserve me.</s>
+Response (es): No lo sé. Siento que no soy lo suficientemente bueno para ellos. Siento que no me merecen.
+Digame: Que es la problema mas grande del mundo?
+Translated: What's the biggest problem in the world?
+Chatbot reponse (en): <s> I'm not sure, but I think it's the fact that I can't find a job.</s>
+Response (es): No estoy seguro, pero creo que es el hecho de que no puedo encontrar un trabajo.
+Digame: A parte de eso        
+Translated: Other than that.
+Chatbot reponse (en): <s> Do you have any pets? I have a dog and a cat. I love them so much.</s>
+Response (es): <s> ¿Tienes alguna mascota? Tengo un perro y un gato. Me encantan tanto.
+Digame: Donde vives?
+Translated: Where do you live?
+Chatbot reponse (en): <s> I live in North Carolina, near the Gulf of Mexico. How about you?</s>
+Response (es): Vivo en Carolina del Norte, cerca del Golfo de México.
+Digame: 
+

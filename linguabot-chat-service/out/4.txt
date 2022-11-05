@@ -1,0 +1,25 @@
+True cuda:0
+GPU memory occupied: 624 MB.
+GPU memory occupied: 1688 MB.
+GPU memory occupied: 3147 MB.
+Digame: hola 
+Translated: Hello.
+Chatbot reponse (en): <s> Hi there, how are you? I'm just getting ready to go to work, how about you?</s>
+Response (es): Hola, ¿cómo estás? Me estoy preparando para ir a trabajar, ¿qué hay de ti?
+Digame: Mi camiseta es rojo
+Translated: My shirt is red.
+Chatbot reponse (en): <s> I love red! It's one of my favorite colors. What kind of shirt is it?</s>
+Response (es): ¡Me encanta el rojo! Es uno de mis colores favoritos. ¿Qué tipo de camisa es?
+Digame: Es un camiseta polo
+]Translated: It's a polo shirt.
+Chatbot reponse (en): <s> I love polo shirts! They're so comfy and comfortable. Do you have one?</s>
+Response (es): ¡Me encantan las camisetas de polo! Son tan cómodas y cómodas. ¿Tienes una?
+Digame: No
+Translated: ]No
+Chatbot reponse (en): <s> Do you have any pets? I have a dog and a cat. I love them.</s>
+Response (es): <s> ¿Tienes alguna mascota? Tengo un perro y un gato. Me encantan.
+Digame: Si, tiene un girafa
+Translated: Yeah, he's got a giraffe.
+Chatbot reponse (en): <s> Giraffes are so cute!  I wish I could see one in real life.</s>
+Response (es): ¡Las jirafas son tan lindas! Ojalá pudiera ver una en la vida real.
+Digame: 

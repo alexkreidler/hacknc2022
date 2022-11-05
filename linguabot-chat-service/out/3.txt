@@ -1,0 +1,69 @@
+GPU memory occupied: 692 MB.
+GPU memory occupied: 1746 MB.
+GPU memory occupied: 3216 MB.
+Digame: history
+
+Digame: Como te llamas?
+Translated: What's your name?
+Chatbot reponse (en): <s> My name is Sarah. I've been working hard to get to this point in my life.</s>
+Response (es): Mi nombre es Sarah. He estado trabajando duro para llegar a este punto en mi vida.
+Digame: history
+What's your name?<s> My name is Sarah. I've been working hard to get to this point in my life.</s>
+Digame: Por que quieres trabajar tanto?
+Translated: Why do you want to work so hard?
+Chatbot reponse (en): <s> I don't know, I guess I just feel like I can do better than everyone else.</s>
+Response (es): No lo sé, supongo que siento que puedo hacerlo mejor que todos los demás.
+Digame: Y eso es importante para ti?
+Translated: And that's important to you?
+Chatbot reponse (en): <s> Yes, it is very important to me. I don't know what I would do without him.</s>
+Response (es): Sí, es muy importante para mí. No sé qué haría sin él.
+Digame: A que te dedicas?
+Translated: What do you do?
+Chatbot reponse (en): <s> I work in a warehouse. It's not the most glamorous job in the world, but it pays the bills.</s>
+Response (es): <s> Trabajo en un almacén. No es el trabajo más glamoroso del mundo, pero paga las facturas.
+Digame: Tienes muchos gastos mensuales?
+Translated: Do you have a lot of monthly expenses?
+Chatbot reponse (en): <s> Yes, I do.  I am trying to save as much money as I can. </s>
+Response (es): <s> Sí, lo hago. Estoy tratando de ahorrar tanto dinero como pueda.
+Digame: Que te gustas comprar?
+Translated: What do you like to buy?
+Chatbot reponse (en): <s> I like to go to the mall and buy things for my family and myself.  What about you?</s>
+Response (es): <s> Me gusta ir al centro comercial y comprar cosas para mi familia y para mí.
+Digame: Si, especialmente comidas y herramientas para la cocina.
+Translated: Yes, especially meals and cooking tools.
+Chatbot reponse (en): <s> I love to cook and bake, but I'm not very good at it. Do you like to cook?</s>
+Response (es): <s> Me encanta cocinar y hornear, pero no soy muy bueno en ello. ¿Te gusta cocinar?
+Digame: Si, que tratas de cocinar?
+Translated: Yeah, what are you trying to cook?
+Chatbot reponse (en): <s> Chicken parmigiana. It's one of my favorite things to cook.</s>
+Response (es): <s> Pollo parmigiana. Es una de mis cosas favoritas para cocinar.
+Digame: Como lo hagas?
+Translated: How do you do it?
+Chatbot reponse (en): <s> I don't know, I just do it all the time. I think I'm addicted.</s>
+Response (es): No lo sé, lo hago todo el tiempo. Creo que soy adicta.
+Digame: Como lo preparas?
+Translated: How do you prepare it?
+Chatbot reponse (en): <s> I like to put it on the grill with a little salt and pepper. It's so good!</s>
+Response (es): <s> Me gusta ponerlo en la parrilla con un poco de sal y pimienta. ¡Es tan bueno!
+Digame: history
+What's your name?<s> My name is Sarah. I've been working hard to get to this point in my life.</s>Why do you want to work so hard?<s> I don't know, I guess I just feel like I can do better than everyone else.</s>And that's important to you?<s> Yes, it is very important to me. I don't know what I would do without him.</s>What do you do?<s> I work in a warehouse. It's not the most glamorous job in the world, but it pays the bills.</s>Do you have a lot of monthly expenses?<s> Yes, I do.  I am trying to save as much money as I can. </s>What do you like to buy?<s> I like to go to the mall and buy things for my family and myself.  What about you?</s>Yes, especially meals and cooking tools.<s> I love to cook and bake, but I'm not very good at it. Do you like to cook?</s>Yeah, what are you trying to cook?<s> Chicken parmigiana. It's one of my favorite things to cook.</s>How do you do it?<s> I don't know, I just do it all the time. I think I'm addicted.</s>How do you prepare it?<s> I like to put it on the grill with a little salt and pepper. It's so good!</s>
+Digame: Dame una pregunta 
+Translated: Give me a question.
+Chatbot reponse (en): <s> What do you like to do in your free time?  I like to play video games.</s>
+Response (es): <s> ¿Qué te gusta hacer en tu tiempo libre? Me gusta jugar a los videojuegos.
+Digame: Otro
+Translated: Other
+Chatbot reponse (en): <s> Do you have any other pets? I have a dog, he's my best friend.</s>
+Response (es): ¿Tienes alguna otra mascota? Tengo un perro, es mi mejor amigo.
+Digame: Preguntame algo
+Translated: Ask me something.
+Chatbot reponse (en): <s> What do you like to do for fun? I like to go hiking and camping.</s>
+Response (es): <s> ¿Qué te gusta hacer por diversión? Me gusta ir de excursión y acampar.
+Digame: Preguntame algo dificil
+Translated: Ask me something hard.
+Chatbot reponse (en): <s> What do you like to do for fun? I like to go hiking and camping.</s>
+Response (es): <s> ¿Qué te gusta hacer por diversión? Me gusta ir de excursión y acampar.
+Digame: Preguntame algo dificil de contestar
+Translated: Ask me something hard to answer.
+Chatbot reponse (en): <s> What do you like to do for fun? I like to go to the beach and surf.</s>
+Response (es): <s> ¿Qué te gusta hacer por diversión? Me gusta ir a la playa y surfear.
