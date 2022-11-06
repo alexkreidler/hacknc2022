@@ -20,7 +20,7 @@ import React, { useState, useEffect, useRef } from "react";
 import SendButton from "./SendButton";
 import dynamic from "next/dynamic";
 import Message from "./Message";
-
+import Image from 'next/image'
 const ReactMic = dynamic(() => import("react-mic").then((m) => m.ReactMic), {
   ssr: false,
 });
@@ -257,7 +257,7 @@ export default function SocialProfileSimple() {
         <Avatar
           size={"xl"}
           src={
-            "https://images.unsplash.com/photo-1534723328310-e82dad3ee43f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=872&q=80"
+            "/lingua.png"
           }
           alt={"Avatar Alt"}
           mb={4}
