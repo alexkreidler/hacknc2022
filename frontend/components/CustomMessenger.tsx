@@ -1,107 +1,119 @@
-import {
-  Heading,
-  Avatar,
-  Box,
-  Center,
-  Text,
-  Stack,
-  Button,
-  Link,
-  Badge,
-  useColorModeValue,
-  Switch,
-  Textarea,
-  Flex,
-} from "@chakra-ui/react";
+import React from 'react'
+import { Stack, Text, Switch, Flex, Button } from '@chakra-ui/react'
+import {useState, useRef, useEffect} from 'react';
+import axios from 'axios'
+import {ReactMic} from 'react-mic'
+import { PulseLoader } from "react-spinners";
 
-import React, { useState } from 'react';
+function Messenger() {
+  const [transcribedData, setTranscribedData] = useState([]);
+  const [interimTranscribedData, ] = useState('');
+  const [isRecording, setIsRecording] = useState(false);
+  const [isTranscribing, setIsTranscribing] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState('english');
+  const [selectedModel, setSelectedModel] = useState(1);
+  const [transcribeTimeout, setTranscribeTimout] = useState(5);
+  const [stopTranscriptionSession, setStopTranscriptionSession] = useState(false);  
+
+  const intervalRef = useRef(null);
+  
+  const stopTranscriptionSessionRef = useRef(stopTranscriptionSession);
+  stopTranscriptionSessionRef.current = stopTranscriptionSession;
+
+  const selectedLangRef = useRef(selectedLanguage);
+  selectedLangRef.current = selectedLanguage;
+
+  const selectedModelRef = useRef(selectedModel);
+  selectedModelRef.current = selectedModel;
+
+  const supportedLanguages = ['english', 'chinese', 'german', 'spanish', 'russian', 'korean', 'french', 'japanese', 'portuguese', 'turkish', 'polish', 'catalan', 'dutch', 'arabic', 'swedish', 'italian', 'indonesian', 'hindi', 'finnish', 'vietnamese', 'hebrew', 'ukrainian', 'greek', 'malay', 'czech', 'romanian', 'danish', 'hungarian', 'tamil', 'norwegian', 'thai', 'urdu', 'croatian', 'bulgarian', 'lithuanian', 'latin', 'maori', 'malayalam', 'welsh', 'slovak', 'telugu', 'persian', 'latvian', 'bengali', 'serbian', 'azerbaijani', 'slovenian', 'kannada', 'estonian', 'macedonian', 'breton', 'basque', 'icelandic', 'armenian', 'nepali', 'mongolian', 'bosnian', 'kazakh', 'albanian', 'swahili', 'galician', 'marathi', 'punjabi', 'sinhala', 'khmer', 'shona', 'yoruba', 'somali', 'afrikaans', 'occitan', 'georgian', 'belarusian', 'tajik', 'sindhi', 'gujarati', 'amharic', 'yiddish', 'lao', 'uzbek', 'faroese', 'haitian creole', 'pashto', 'turkmen', 'nynorsk', 'maltese', 'sanskrit', 'luxembourgish', 'myanmar', 'tibetan', 'tagalog', 'malagasy', 'assamese', 'tatar', 'hawaiian', 'lingala', 'hausa', 'bashkir', 'javanese', 'sundanese']
+
+  const modelOptions = ['tiny', 'base', 'small', 'medium', 'large']
+
+  useEffect(() => {
+    return () => clearInterval(intervalRef.current);
+  }, []);
 
 
-import SendButton from "../components/SendButton"
+  function handleTranscribeTimeoutChange(newTimeout) {
+    setTranscribeTimout(newTimeout)
+  }
 
-import Messsage from "./Message";
+  function startRecording() {
+    setStopTranscriptionSession(false)
+    setIsRecording(true)
+    intervalRef.current = setInterval(transcribeInterim, transcribeTimeout * 1000)
+  }
 
-export default function SocialProfileSimple() {
-  // if(test.color == 'blue.400'){
-  //     test.paddingLeft=700
-  //     test.
-  // }
-  // else if(test.color == 'green.400'){
+  function stopRecording() {
+    clearInterval(intervalRef.current);
+    setStopTranscriptionSession(true)
+    setIsRecording(false)
+    setIsTranscribing(false)
+  }
 
-  // }
-  const [message, changeMessage] = useState({
-    text: "",
-    sender: "",
-    date: ""
-  })
-    const [messages, addMessage] = useState([{
-        text: "hello",
-        sender: "yes",
-        date: "10-10-10"
+  function onData(recordedBlob) {
+    // console.log('chunk of real-time data is: ', recordedBlob);
+  }
 
-    }])
+  function onStop(recordedBlob) {
+    transcribeRecording(recordedBlob)
+    setIsTranscribing(true)  
+  }
 
-  function handleSubmit () {
-    
-    changeMessage({...message, sender: "Brendon", date: "10-22-22"})
-    console.log(message)
-    addMessage([...messages, message])
-    // messages.push({sender: "Brendon", sent: "11-23-23", text: "What's up"})
-    
-}
+  function transcribeInterim() {
+    clearInterval(intervalRef.current);
+    setIsRecording(false)
+  }
+
+  function transcribeRecording(recordedBlob) {
+    const headers = {
+      "content-type": "multipart/form-data",
+    };
+    const formData = new FormData();
+    formData.append("language", selectedLangRef.current)
+    formData.append("model_size", modelOptions[selectedModelRef.current])
+    formData.append("audio_data", recordedBlob.blob, 'temp_recording');
+    axios.post("http://0.0.0.0:8000/transcribe", formData, { headers })
+      .then((res) => {
+        setTranscribedData(oldData => [...oldData, res.data])
+        setIsTranscribing(false)
+        setIsRecording(false)
+        // intervalRef.current = setInterval(transcribeInterim, transcribeTimeout * 1000)
+      });
+      
+      // if (!stopTranscriptionSessionRef.current){
+      //   setIsRecording(true)
+      // }
+  }
   return (
-    <Center py={6}>
-      <Box
-        maxW={"1020px"}
-        w={"full"}
-        bg={useColorModeValue("white", "gray.900")}
-        boxShadow={"2xl"}
-        rounded={"lg"}
-        p={6}
-        textAlign={"center"}
-      >
-        <Avatar
-          size={"xl"}
-          src={
-            "https://images.unsplash.com/photo-1534723328310-e82dad3ee43f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=872&q=80"
-          }
-          alt={"Avatar Alt"}
-          mb={4}
-          pos={"relative"}
-          _after={{
-            content: '""',
-            w: 4,
-            h: 4,
-            bg: "green.300",
-            border: "2px solid white",
-            rounded: "full",
-            pos: "absolute",
-            bottom: 0,
-            right: 3,
-          }}
-        />
+    <div>
+      <div>
+        <Text>
+          Whisper Playground <span role="img" aria-label="microphone-emoji">🎤</span>
+        </Text>
+      </div>
+      <div>
+        {/* <SettingsSections disabled={isTranscribing || isRecording} possibleLanguages={supportedLanguages} selectedLanguage={selectedLanguage}
+          onLanguageChange={setSelectedLanguage} modelOptions={modelOptions} selectedModel={selectedModel} onModelChange={setSelectedModel}
+          transcribeTimeout={transcribeTimeout} onTranscribeTiemoutChanged={handleTranscribeTimeoutChange} /> */}
+      </div>
+      <div >
+        {!isRecording && !isTranscribing && <Button onClick={startRecording} variant="primary">Start transcribing</Button>}
+        {(isRecording || isTranscribing) && <Button onClick={stopRecording} variant="danger" disabled={stopTranscriptionSessionRef.current}>Stop</Button>}
+      </div>
+      
+      <div className="recordIllustration">
+        <ReactMic record={isRecording} className="sound-wave" onStop={onStop}
+          onData={onData} strokeColor="#0d6efd" backgroundColor="#f6f6ef" />
+      </div>
 
-        <Flex direction="column" w="full">
-          {messages.map((m) => (
-            <Messsage
-            message={m}
-            ></Messsage>
-          ))}
-        </Flex>
-
-        <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
-          {/* put toggle switch for text/speech here */}
-          <Text>Text</Text>
-          <Switch></Switch>
-          <Text>Voice</Text>
-        </Stack>
-
-        <Stack mt={8} direction={"row"} spacing={4}>
-          {/* put type / bullshit here */}
-          <Textarea onChange={(e) => changeMessage({...message, text: e.target.value})}></Textarea>
-          <SendButton onClick={handleSubmit}></SendButton>
-        </Stack>
-      </Box>
-    </Center>
-  );
+      <div>
+        {/* <TranscribeOutput transcribedText={transcribedData} interimTranscribedText={interimTranscribedData} /> */}
+        <PulseLoader sizeUnit={"px"} size={20} color="purple" loading={isTranscribing} />
+      </div>
+    </div>
+  )
 }
+
+export default Messenger
