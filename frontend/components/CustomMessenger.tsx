@@ -239,8 +239,8 @@ export default function SocialProfileSimple() {
 
           {/* overflowY={'auto',''} maxH="250px" */}
           <Flex direction="column" w="full" flexGrow={1} overflowY="scroll">
-            {messages.map((m) => (
-              <Message message={m}></Message>
+            {messages.map((m, idx) => (
+              <Message message={m} key={idx}></Message>
             ))}
           </Flex>
           <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
