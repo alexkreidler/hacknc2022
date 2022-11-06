@@ -10,6 +10,13 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi import File, Form, UploadFile
 
 from pydantic import BaseModel
+
+
+from google.cloud import speech
+from google.cloud.speech import SpeechRecognitionResult
+
+from audio_metadata import loads
+
 app = FastAPI()
 
 origins = ["*"]
@@ -36,6 +43,50 @@ status = "starting"
 @app.get("/")
 def read_root():
     return {"status": status}
+
+
+
+@app.post("/transcribe")
+def transcribe_audio(audio_data: bytes = File(), language: Optional[str] = Form()):
+    print("Got transcribe request for", language)
+    # content = await audio_data.read()
+    try:
+        # meta = loads(audio_data)
+        # channels = meta.streaminfo.channels if meta.streaminfo and meta.streaminfo.channels else 1
+        client = speech.SpeechClient()
+
+        audio = speech.RecognitionAudio(content=audio_data)
+        config = speech.RecognitionConfig(
+            # encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
+            # sample_rate_hertz=16000,
+            language_code=language,
+            audio_channel_count=2
+            # "en-US",
+        )
+
+        response = client.recognize(config=config, audio=audio)
+
+        # Each result is for a consecutive portion of the audio. Iterate through
+        # them to get the transcripts for the entire audio file.
+        transcript = ""
+        results: list[SpeechRecognitionResult] = response.results
+        
+        out = []
+        for result in results:
+            most_likely_chunk = result.alternatives[0].transcript
+            transcript += most_likely_chunk
+            
+            result_json = SpeechRecognitionResult.to_dict(result)
+            out.append(result_json)
+
+        print("Handling request, transcript length", len(transcript))
+        f = {"transcript": transcript, "details": out}
+    except Exception as error:
+        print(error)
+        return "Internal transcription error"
+
+    # print(f)
+    return f
 
 
 @app.get("/chats/{chat_id}")
@@ -72,42 +123,6 @@ def send_message(chat_id: str, message: SimpleMessage):
     
     return jsonable_encoder(chat) #{"id": chat_id, "history": chat.history}
 
-
-
-from google.cloud import speech
-from google.cloud.speech import SpeechRecognitionResult
-@app.post("/transcribe")
-def transcribe_audio(audio_data: bytes = File(), language: Optional[str] = Form()):
-    # content = await audio_data.read()
-    client = speech.SpeechClient()
-
-    audio = speech.RecognitionAudio(content=audio_data)
-    config = speech.RecognitionConfig(
-        # encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
-        # sample_rate_hertz=16000,
-        language_code=language,
-        # "en-US",
-    )
-
-    response = client.recognize(config=config, audio=audio)
-
-    # Each result is for a consecutive portion of the audio. Iterate through
-    # them to get the transcripts for the entire audio file.
-    transcript = ""
-    results: list[SpeechRecognitionResult] = response.results
-    
-    out = []
-    for result in results:
-        most_likely_chunk = result.alternatives[0].transcript
-        transcript += most_likely_chunk
-        
-        result_json = SpeechRecognitionResult.to_dict(result)
-        out.append(result_json)
-
-    print("Handling request, transcript length", len(transcript))
-    f = {"transcript": transcript, "details": out}
-    # print(f)
-    return f
 
 
 status = "ok"
