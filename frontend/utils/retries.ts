@@ -6,7 +6,9 @@
  *   - Third retry: 2000 ms + <random> ms
  * and so forth until maximum retries are met, or the promise resolves.
  */
- export const withRetries = ({ attempt, maxRetries }: { attempt: Promise<any>, maxRetries?: number }) => async (...args: any[]) => {
+export const withRetries =
+  ({ attempt, maxRetries }: { attempt: Promise<any>; maxRetries?: number }) =>
+  async (...args: any[]) => {
     const slotTime = 500;
     let retryCount = 0;
     do {
@@ -25,7 +27,6 @@
       const randomTime = Math.floor(Math.random() * slotTime);
       const delay = 2 ** retryCount * slotTime + randomTime;
       // Wait for the exponentially increasing delay period before retrying again.
-      await new Promise(resolve => setTimeout(resolve, delay));
+      await new Promise((resolve) => setTimeout(resolve, delay));
     } while (retryCount++ < maxRetries);
-  }
-  
+  };

@@ -14,14 +14,19 @@ import {
   Textarea,
   Select,
   Image,
-  
 } from "@chakra-ui/react";
 
 import ReactCountryFlag from "react-country-flag";
 import ReactFlagsSelect from "react-flags-select";
 import { supportedLanguages } from "../utils/languageCodes";
 
-export default function SocialProfileSimple({selected, setSelected}: {selected: string, setSelected: (lang: string) => void}) {
+export default function SocialProfileSimple({
+  selected,
+  setSelected,
+}: {
+  selected: string;
+  setSelected: (lang: string) => void;
+}) {
   return (
     <Center py={6}>
       <Box
@@ -33,7 +38,6 @@ export default function SocialProfileSimple({selected, setSelected}: {selected: 
         rounded={"lg"}
         p={6}
         textAlign={"center"}
-
       >
         <h1>Select Language</h1>
         <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>

@@ -164,7 +164,7 @@ export default function SocialProfileSimple() {
 
     // formData.append("language", Object.entries(languageCodes).filter(([code, lang]) => lang == selectedLanguage)[0][0]);
     // console.log(selectedLanguage);
-    
+
     formData.append("language", selectedLanguage);
     // formData.append("model_size", modelSize)
     formData.append("audio_data", recordedBlob.blob, "temp_recording");
@@ -174,7 +174,7 @@ export default function SocialProfileSimple() {
       .then((res) => {
         const message = res.data.transcript;
         console.log(res.data);
-        
+
         setTranscribedData((oldData) => [...oldData, message]);
         setIsTranscribing(false);
         setIsRecording(false);
@@ -234,12 +234,11 @@ export default function SocialProfileSimple() {
                 right: 3,
               }}
             />
-              <Text fontSize={10}>LingaChat</Text>
+            <Text fontSize={10}>LingaChat</Text>
           </VStack>
 
           {/* overflowY={'auto',''} maxH="250px" */}
-          <Flex direction="column" w="full" flexGrow={1} 
-          overflowY="scroll">
+          <Flex direction="column" w="full" flexGrow={1} overflowY="scroll">
             {messages.map((m) => (
               <Message message={m}></Message>
             ))}
@@ -289,7 +288,6 @@ export default function SocialProfileSimple() {
                   // width="100px"
                   aria-label="Call Segun"
                   leftIcon={<PhoneIcon />}
-                  
                   color="#4399e1"
                   size="sm"
                   onClick={toggleRecording}

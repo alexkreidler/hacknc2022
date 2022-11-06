@@ -1,23 +1,24 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import "../styles/globals.css";
+import type { AppProps } from "next/app";
 
-import { ChakraProvider } from '@chakra-ui/react';
-
+import { ChakraProvider } from "@chakra-ui/react";
 
 function SafeHydrate({ children }) {
   return (
     <div suppressHydrationWarning>
-      {typeof window === 'undefined' ? null : children}
+      {typeof window === "undefined" ? null : children}
     </div>
-  )
+  );
 }
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <ChakraProvider>
-    <SafeHydrate>
-      <Component {...pageProps} />
+  return (
+    <ChakraProvider>
+      <SafeHydrate>
+        <Component {...pageProps} />
       </SafeHydrate>
-  </ChakraProvider>
+    </ChakraProvider>
+  );
 }
 
-export default MyApp
+export default MyApp;

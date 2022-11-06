@@ -19,7 +19,10 @@ export interface History {
 }
 
 /** Sends a chat message */
-export const sendMessage = async (msg: string, chatID: string): Promise<IMessage> => {
+export const sendMessage = async (
+  msg: string,
+  chatID: string
+): Promise<IMessage> => {
   const msgURL = `${baseURL}/chats/${chatID}/message`;
   const raw = await fetch(msgURL, {
     method: "POST",
