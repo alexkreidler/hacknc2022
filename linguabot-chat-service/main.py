@@ -44,9 +44,17 @@ def setup_translation(src="en", target="es"):
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     return (model, tokenizer)
 
+# Chinese, hindi
+SUPPORTED_LANGS = ["es", "fr", "de", "it", "zh", "hi", "ru"]
 
-en_es = setup_translation()
-es_en = setup_translation("es", "en")
+models = {}
+for lang in SUPPORTED_LANGS:
+    print("Initializing", lang)
+    models[lang] = {
+        "from_lang": setup_translation(lang, "en"),
+        "to_lang": setup_translation("en", lang)
+    }
+
 # TODO: fix issue with period dropping further translation
 
 print_gpu_utilization()
@@ -110,11 +118,17 @@ def run_chatbot(inp):
 
 
 # Run pipeline on single text input, adds to chat history, returns response
-def pipeline(input_orig: str, history: list[Message]):
+def pipeline(input_orig: str, history: list[Message], lang: str):
     received = datetime.now()
+
+    if not lang in models:
+        return "Sorry, this language is not supported"
+
+    from_lang = models[lang]["from_lang"]
+    to_lang = models[lang]["to_lang"]
     #   print("Input:", inp)
     start_t1 = timer()
-    input_en = run_translation(*es_en, input_orig)
+    input_en = run_translation(*from_lang, input_orig)
     end_t1 = timer()
     translation1_timing = end_t1 - start_t1
 
@@ -133,7 +147,7 @@ def pipeline(input_orig: str, history: list[Message]):
 
     print("Chatbot reponse (en):", result_en)
     start_t2 = timer()
-    result_lang = run_translation(*en_es, result_en)
+    result_lang = run_translation(*to_lang, result_en)
     end_t2 = timer()
     translation2_timing = end_t2 - start_t2
     print("Response (es):", result_lang)

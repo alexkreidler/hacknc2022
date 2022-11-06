@@ -113,10 +113,10 @@ class SimpleMessage(BaseModel):
     text: str
 
 @app.post("/chats/{chat_id}/message")
-def send_message(chat_id: str, message: SimpleMessage):
+def send_message(chat_id: str, message: SimpleMessage, lang: Optional[str]):
     # print(chat_id, message)
     chat = chats[chat_id]
-    out = pipeline(message.text, chat.history)
+    out = pipeline(message.text, chat.history, "es" if not lang else lang)
     # n = Message(message, out[1], out[0], out[2])
     chat.history.append(out[0])
     print(out[1])
