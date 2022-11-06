@@ -14,9 +14,14 @@ import {
     useBoolean
   } from '@chakra-ui/react';
   import axios from 'axios';
-  import { ReactMic } from 'react-mic';
+  // import { ReactMic } from 'react-mic';
   import React, { useState, useEffect, useRef } from 'react';
 
+  import dynamic from 'next/dynamic';
+
+  const ReactMic = dynamic(()=> import('react-mic').then((m) => m.ReactMic), {
+      ssr:false,
+  })
   
   export default function SocialProfileSimple() {
     const [isText, setIsText] = useBoolean();
@@ -66,6 +71,14 @@ import {
     setIsTranscribing(false)
   }
 
+  function toggleRecording() {
+    if (isRecording) {
+      stopRecording()
+    } else {
+      startRecording()
+    }
+  }
+
   function onData(recordedBlob) {
     // console.log('chunk of real-time data is: ', recordedBlob);
   }
@@ -84,15 +97,23 @@ import {
       "content-type": "multipart/form-data",
     };
     const formData = new FormData();
-    formData.append("language", selectedLangRef.current)
-    formData.append("model_size", modelOptions[selectedModelRef.current])
-    formData.append("audio_data", recordedBlob.blob, 'temp_recording');
+    const language = selectedLangRef.current
+    const modelSize = modelOptions[selectedModelRef.current];
+    console.log(language, modelSize);
+    
+    formData.append("language", language)
+    formData.append("model_size", modelSize)
+    // formData.append("audio_data", recordedBlob.blob, 'temp_recording');
     axios.post("http://0.0.0.0:9000/transcribe", formData, { headers })
       .then((res) => {
         setTranscribedData(oldData => [...oldData, res.data])
         setIsTranscribing(false)
         setIsRecording(false)
+        console.log(res.data)
         // intervalRef.current = setInterval(transcribeInterim, transcribeTimeout * 1000)
+      }).catch((err) => {
+        console.error(err);
+        
       });
       
       // if (!stopTranscriptionSessionRef.current){
@@ -151,7 +172,7 @@ import {
             </Stack>
             ) : (
               <Stack>
-                <Button colorScheme="red" size="md">Record Voice</Button>
+                <Button colorScheme="red" size="md" onClick={toggleRecording}>{isRecording ? "Stop Recording" : "Record Voice"}</Button>
                 <div className="recordIllustration">
                   <ReactMic record={isRecording} className="sound-wave" onStop={onStop}
                   onData={onData} strokeColor="#0d6efd" backgroundColor="#f6f6ef" />
