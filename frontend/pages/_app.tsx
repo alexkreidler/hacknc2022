@@ -14,9 +14,9 @@ function SafeHydrate({ children }) {
 
 function MyApp({ Component, pageProps }: AppProps) {
   return <ChakraProvider>
-    {/* <SafeHydrate> */}
+    <SafeHydrate>
       <Component {...pageProps} />
-      {/* </SafeHydrate> */}
+      </SafeHydrate>
   </ChakraProvider>
 }
 

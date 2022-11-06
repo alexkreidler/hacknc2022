@@ -14,6 +14,7 @@ import {
   useBoolean,
   Flex,
   HStack,
+  VStack,
 } from "@chakra-ui/react";
 import axios from "axios";
 // import { ReactMic } from 'react-mic';
@@ -27,6 +28,7 @@ import { IconButton } from "@chakra-ui/react";
 import { PhoneIcon } from "@chakra-ui/icons";
 import { arrayBuffer } from "stream/consumers";
 import { Select } from "chakra-react-select";
+import { recentYearsRandomDate } from "../utils/date";
 
 const ReactMic = dynamic(() => import("react-mic").then((m) => m.ReactMic), {
   ssr: false,
@@ -69,8 +71,8 @@ export default function SocialProfileSimple() {
   const [messages, addMessage] = useState([
     {
       text: "hello",
-      sender: "yes",
-      date: "10-10-10",
+      sender: "Brendon",
+      date: recentYearsRandomDate(),
     },
   ]);
 
@@ -163,11 +165,11 @@ export default function SocialProfileSimple() {
     value: code,
   }));
   return (
-    <Center py={6}>
-      <HStack spacing={5}>
-        <Box
-          maxW={"container.md"}
-          w={"full"}
+    <Center py={6} flexGrow={1} h="full">
+      <HStack spacing={5} h="full">
+        <VStack
+          w={"container.md"}
+          h="80vh"
           bg={useColorModeValue("white", "gray.900")}
           boxShadow={"md"}
           rounded={"lg"}
@@ -197,7 +199,7 @@ export default function SocialProfileSimple() {
             <Text>LingaChat</Text>
           </Box>
           {/* overflowY={'auto',''} maxH="250px" */}
-          <Flex direction="column" w="full">
+          <Flex direction="column" w="full" flexGrow={1}>
             {messages.map((m) => (
               <Message message={m}></Message>
             ))}
@@ -213,7 +215,7 @@ export default function SocialProfileSimple() {
             ></Switch>
             <Text>Voice</Text>
           </Stack>
-          <div>
+          <Box w="full">
             {!isText ? (
               <Stack mt={8} direction={"row"} spacing={4}>
                 {/* put type / bullshit here */}
@@ -257,8 +259,8 @@ export default function SocialProfileSimple() {
                 </IconButton>
               </Stack>
             )}
-          </div>
-        </Box>
+          </Box>
+        </VStack>
         <Box w="md" alignSelf="start">
           <Text color="gray.600">Select Language</Text>
           <Select

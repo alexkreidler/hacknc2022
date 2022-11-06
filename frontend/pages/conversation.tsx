@@ -30,7 +30,7 @@ export default function Home() {
   return (
     
     <Flex minH="100vh" flexDir="column">
-      <Box flexGrow={1}>
+      <Flex flexGrow={1} flexDir="column">
 
         <CustomNavbar />
         {/* <CustomLS></CustomLS> */}
@@ -38,7 +38,7 @@ export default function Home() {
         <CustomMessenger  />
         
         
-      </Box>
+      </Flex>
       <CustomFooter />
     </Flex>
   )
