@@ -33,7 +33,7 @@ export default function Home() {
       <Box flexGrow={1}>
 
         <CustomNavbar />
-        <CustomLS></CustomLS>
+        {/* <CustomLS></CustomLS> */}
         
         <CustomMessenger  />
         

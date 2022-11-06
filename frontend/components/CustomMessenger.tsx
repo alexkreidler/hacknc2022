@@ -13,6 +13,7 @@ import {
   Textarea,
   useBoolean,
   Flex,
+  HStack,
 } from "@chakra-ui/react";
 import axios from "axios";
 // import { ReactMic } from 'react-mic';
@@ -25,6 +26,7 @@ import { languageCodes } from "../utils/languageCodes";
 import { IconButton } from "@chakra-ui/react";
 import { PhoneIcon } from "@chakra-ui/icons";
 import { arrayBuffer } from "stream/consumers";
+import { Select } from "chakra-react-select";
 
 const ReactMic = dynamic(() => import("react-mic").then((m) => m.ReactMic), {
   ssr: false,
@@ -36,7 +38,7 @@ export default function SocialProfileSimple() {
   const [interimTranscribedData] = useState("");
   const [isRecording, setIsRecording] = useState(false);
   const [isTranscribing, setIsTranscribing] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState("english");
+  const [selectedLanguage, setSelectedLanguage] = useState("en-us");
   const [selectedModel, setSelectedModel] = useState(1);
   const [transcribeTimeout, setTranscribeTimout] = useState(5);
   const [stopTranscriptionSession, setStopTranscriptionSession] =
@@ -133,9 +135,9 @@ export default function SocialProfileSimple() {
     const language = selectedLangRef.current;
     const modelSize = modelOptions[selectedModelRef.current];
     console.log(language, modelSize);
-    
+
     // formData.append("language", Object.entries(languageCodes).filter(([code, lang]) => lang == selectedLanguage)[0][0]);
-    formData.append("language", "en-US")
+    formData.append("language", selectedLanguage);
     // formData.append("model_size", modelSize)
     formData.append("audio_data", recordedBlob.blob, "temp_recording");
     // formData.
@@ -156,61 +158,66 @@ export default function SocialProfileSimple() {
     //   setIsRecording(true)
     // }
   }
+  const options = Object.entries(languageCodes).map(([code, name]) => ({
+    label: name,
+    value: code,
+  }));
   return (
     <Center py={6}>
-      <Box
-        maxW={"1020px"}
-        w={"full"}
-        bg={useColorModeValue("white", "gray.900")}
-        boxShadow={"2xl"}
-        rounded={"lg"}
-        p={6}
-        textAlign={"center"}
-      >
-        <Avatar
-          size={"xl"}
-          src={"/lingua.png"}
-          alt={"Avatar Alt"}
-          mb={4}
-          pos={"relative"}
-          _after={{
-            content: '""',
-            w: 4,
-            h: 4,
-            bg: "green.300",
-            border: "2px solid white",
-            rounded: "full",
-            pos: "absolute",
-            bottom: 0,
-            right: 3,
-          }}
-        />
-
-        <Box>
-          <Text>Yes</Text>
-        </Box>
-        {/* overflowY={'auto',''} maxH="250px" */}
-        <Flex  direction="column" w="full">
-          {messages.map((m) => (
-            <Message message={m}></Message>
-          ))}
-        </Flex>
-        <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
-          {/* put toggle switch for text/speech here */}
-          <Text>Text</Text>
-          <Switch
-            onChange={() => {
-              setIsText.toggle();
-              console.log(isText);
+      <HStack spacing={5}>
+        <Box
+          maxW={"container.md"}
+          w={"full"}
+          bg={useColorModeValue("white", "gray.900")}
+          boxShadow={"md"}
+          rounded={"lg"}
+          p={6}
+          textAlign={"center"}
+        >
+          <Avatar
+            size={"xl"}
+            src={"/lingua.png"}
+            alt={"Avatar Alt"}
+            mb={4}
+            pos={"relative"}
+            _after={{
+              content: '""',
+              w: 4,
+              h: 4,
+              bg: "green.300",
+              border: "2px solid white",
+              rounded: "full",
+              pos: "absolute",
+              bottom: 0,
+              right: 3,
             }}
-          ></Switch>
-          <Text>Voice</Text>
-        </Stack>
-        <div>
-          {!isText ? (
-            <Stack mt={8} direction={"row"} spacing={4}>
-              {/* put type / bullshit here */}
-              
+          />
+
+          <Box>
+            <Text>LingaChat</Text>
+          </Box>
+          {/* overflowY={'auto',''} maxH="250px" */}
+          <Flex direction="column" w="full">
+            {messages.map((m) => (
+              <Message message={m}></Message>
+            ))}
+          </Flex>
+          <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
+            {/* put toggle switch for text/speech here */}
+            <Text>Text</Text>
+            <Switch
+              onChange={() => {
+                setIsText.toggle();
+                console.log(isText);
+              }}
+            ></Switch>
+            <Text>Voice</Text>
+          </Stack>
+          <div>
+            {!isText ? (
+              <Stack mt={8} direction={"row"} spacing={4}>
+                {/* put type / bullshit here */}
+
                 <Textarea
                   resize={"none"}
                   onChange={(e) =>
@@ -218,41 +225,53 @@ export default function SocialProfileSimple() {
                   }
                   value={message.text}
                 ></Textarea>
-              
 
-              <SendButton onClick={handleClick}></SendButton>
-            </Stack>
-          ) : (
-            <Stack>
-              <Box w="fit-content" flexGrow={1} alignSelf="center">
-                <ReactMic
-                  record={isRecording}
-                  className="sound-wave"
-                  onStop={onStop}
-                  onData={onData}
-                  strokeColor="#0d6efd"
-                  backgroundColor="#ffffff"
-                />
-              </Box>
+                <SendButton onClick={handleClick}></SendButton>
+              </Stack>
+            ) : (
+              <Stack>
+                <Box w="fit-content" flexGrow={1} alignSelf="center">
+                  <ReactMic
+                    record={isRecording}
+                    className="sound-wave"
+                    onStop={onStop}
+                    onData={onData}
+                    strokeColor="#0d6efd"
+                    backgroundColor="#ffffff"
+                  />
+                </Box>
 
-              <div>
-                <h1>{transcribedData.join("\n")}</h1>
-              </div>
-              <IconButton
-                alignSelf={"center"}
-                width="100px"
-                aria-label="Call Segun"
-                icon={<PhoneIcon />}
-                color="#4399e1"
-                size="sm"
-                onClick={toggleRecording}
-              >
-                {isRecording ? "Stop Recording" : "Record Voice"}
-              </IconButton>
-            </Stack>
-          )}
-        </div>
-      </Box>
+                <div>
+                  <h1>{transcribedData.join("\n")}</h1>
+                </div>
+                <IconButton
+                  alignSelf={"center"}
+                  width="100px"
+                  aria-label="Call Segun"
+                  icon={<PhoneIcon />}
+                  color="#4399e1"
+                  size="sm"
+                  onClick={toggleRecording}
+                >
+                  {isRecording ? "Stop Recording" : "Record Voice"}
+                </IconButton>
+              </Stack>
+            )}
+          </div>
+        </Box>
+        <Box w="md" alignSelf="start">
+          <Text color="gray.600">Select Language</Text>
+          <Select
+            value={
+              Object.entries(languageCodes)
+                .filter(([code, name]) => code == selectedLanguage)
+                .map(([code, name]) => ({ label: name, value: code }))[0]
+            }
+            options={options}
+            onChange={(newVal) => setSelectedLanguage(newVal?.value)}
+          />
+        </Box>
+      </HStack>
     </Center>
   );
 }

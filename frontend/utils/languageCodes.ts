@@ -1,4 +1,5 @@
 export const languageCodes = {
+  "en-us": "English (United States)",
   "aa": "Afar",
   "ab": "Abkhazian",
   "af": "Afrikaans",
@@ -54,7 +55,6 @@ export const languageCodes = {
   "en-nz": "English (New Zealand)",
   "en-ph": "English (Philippines)",
   "en-tt": "English (Trinidad)",
-  "en-us": "English (United States)",
   "en-za": "English (South Africa)",
   "en-zw": "English (Zimbabwe)",
   "eo": "Esperanto",
