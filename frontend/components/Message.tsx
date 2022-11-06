@@ -33,7 +33,7 @@ export default function Messsage({message}) {
         fontSize={"sm"}
         maxW={"150px"}
         rounded={"10"}
-        bg={message.sender == me ? "blue" : "green" + ".400"}
+        bg={message.sender == me ? "blue" : "gray" + ".400"}
         color={"white"}
         w="fit-content"
       >

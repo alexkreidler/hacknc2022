@@ -26,12 +26,14 @@ export default function SocialProfileSimple({selected, setSelected}: {selected: 
     <Center py={6}>
       <Box
         maxW={"400px"}
+        marginBottom={"-80px"}
         w={"full"}
         bg={useColorModeValue("white", "gray.900")}
-        boxShadow={"2xl"}
+        //boxShadow={"2xl"}
         rounded={"lg"}
         p={6}
         textAlign={"center"}
+
       >
         <h1>Select Language</h1>
         <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
