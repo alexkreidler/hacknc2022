@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from typing import Union
 
 from fastapi.encoders import jsonable_encoder
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, File, Form, UploadFile
 
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -37,7 +37,7 @@ def read_root():
 
 
 @app.post("/transcribe")
-def transcribe_audio(audio_data: bytes = File()):
+def transcribe_audio(audio_data: bytes = File(), language: str = Form()):
     # content = await audio_data.read()
     client = speech.SpeechClient()
 
@@ -45,7 +45,8 @@ def transcribe_audio(audio_data: bytes = File()):
     config = speech.RecognitionConfig(
         # encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
         # sample_rate_hertz=16000,
-        language_code="en-US",
+        language_code=language,
+        # "en-US",
     )
 
     response = client.recognize(config=config, audio=audio)
@@ -54,18 +55,18 @@ def transcribe_audio(audio_data: bytes = File()):
     # them to get the transcripts for the entire audio file.
     transcript = ""
     results: list[SpeechRecognitionResult] = response.results
+    
+    out = []
     for result in results:
-        # The first alternative is the most likely one for this portion.
-        chunkT = result.alternatives[0].transcript
-        transcript += chunkT
-        print(u"Transcript: {}".format(chunkT))
-        result_json = SpeechRecognitionResult.to_json(result)
-        # result_json = protobuf_to_dict(result)
-        print(result_json)
-        # json = MessageToJson(result)
-        # print(json)
+        most_likely_chunk = result.alternatives[0].transcript
+        transcript += most_likely_chunk
+        
+        result_json = SpeechRecognitionResult.to_dict(result)
+        out.append(result_json)
 
 
-    return transcript
+    f = {"transcript": transcript, "details": out}
+    # print(f)
+    return f
 
 status = "ok"

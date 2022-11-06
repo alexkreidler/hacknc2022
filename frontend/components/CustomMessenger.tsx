@@ -21,6 +21,7 @@ import SendButton from "./SendButton";
 import dynamic from "next/dynamic";
 import Message from "./Message";
 import Image from 'next/image'
+import { languageCodes } from "../utils/languageCodes";
 const ReactMic = dynamic(() => import("react-mic").then((m) => m.ReactMic), {
   ssr: false,
 });
@@ -47,108 +48,6 @@ export default function SocialProfileSimple() {
 
   const selectedModelRef = useRef(selectedModel);
   selectedModelRef.current = selectedModel;
-
-  const supportedLanguages = [
-    "english",
-    "chinese",
-    "german",
-    "spanish",
-    "russian",
-    "korean",
-    "french",
-    "japanese",
-    "portuguese",
-    "turkish",
-    "polish",
-    "catalan",
-    "dutch",
-    "arabic",
-    "swedish",
-    "italian",
-    "indonesian",
-    "hindi",
-    "finnish",
-    "vietnamese",
-    "hebrew",
-    "ukrainian",
-    "greek",
-    "malay",
-    "czech",
-    "romanian",
-    "danish",
-    "hungarian",
-    "tamil",
-    "norwegian",
-    "thai",
-    "urdu",
-    "croatian",
-    "bulgarian",
-    "lithuanian",
-    "latin",
-    "maori",
-    "malayalam",
-    "welsh",
-    "slovak",
-    "telugu",
-    "persian",
-    "latvian",
-    "bengali",
-    "serbian",
-    "azerbaijani",
-    "slovenian",
-    "kannada",
-    "estonian",
-    "macedonian",
-    "breton",
-    "basque",
-    "icelandic",
-    "armenian",
-    "nepali",
-    "mongolian",
-    "bosnian",
-    "kazakh",
-    "albanian",
-    "swahili",
-    "galician",
-    "marathi",
-    "punjabi",
-    "sinhala",
-    "khmer",
-    "shona",
-    "yoruba",
-    "somali",
-    "afrikaans",
-    "occitan",
-    "georgian",
-    "belarusian",
-    "tajik",
-    "sindhi",
-    "gujarati",
-    "amharic",
-    "yiddish",
-    "lao",
-    "uzbek",
-    "faroese",
-    "haitian creole",
-    "pashto",
-    "turkmen",
-    "nynorsk",
-    "maltese",
-    "sanskrit",
-    "luxembourgish",
-    "myanmar",
-    "tibetan",
-    "tagalog",
-    "malagasy",
-    "assamese",
-    "tatar",
-    "hawaiian",
-    "lingala",
-    "hausa",
-    "bashkir",
-    "javanese",
-    "sundanese",
-  ];
 
   const modelOptions = ["tiny", "base", "small", "medium", "large"];
 
@@ -223,13 +122,14 @@ export default function SocialProfileSimple() {
     const modelSize = modelOptions[selectedModelRef.current];
     console.log(language, modelSize);
     
-    // formData.append("language", language)
+    formData.append("language", Object.entries(languageCodes).filter(([code, lang]) => lang == selectedLanguage)[0][0]);
+    
     // formData.append("model_size", modelSize)
     formData.append("audio_data", recordedBlob.blob, 'temp_recording');
     // formData.
     axios.post("http://0.0.0.0:8000/transcribe", formData, { headers })
       .then((res) => {
-        setTranscribedData((oldData) => [...oldData, res.data]);
+        setTranscribedData((oldData) => [...oldData, res.data.transcript]);
         setIsTranscribing(false);
         setIsRecording(false);
         console.log(res.data);
@@ -325,7 +225,7 @@ export default function SocialProfileSimple() {
                 />
               </div>
               <div>
-                <h1>{transcribedData}</h1>
+                <h1>{transcribedData.join("\n")}</h1>
               </div>
             </Stack>
           )}
