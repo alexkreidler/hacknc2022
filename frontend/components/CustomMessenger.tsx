@@ -132,13 +132,13 @@ export default function SocialProfileSimple() {
     const modelSize = modelOptions[selectedModelRef.current];
     console.log(language, modelSize);
     
-    formData.append("language", Object.entries(languageCodes).filter(([code, lang]) => lang == selectedLanguage)[0][0]);
-    
+    // formData.append("language", Object.entries(languageCodes).filter(([code, lang]) => lang == selectedLanguage)[0][0]);
+    formData.append("language", "en-US")
     // formData.append("model_size", modelSize)
     formData.append("audio_data", recordedBlob.blob, "temp_recording");
     // formData.
     axios
-      .post("http://0.0.0.0:8000/transcribe", formData, { headers })
+      .post("http://localhost:9000/transcribe", formData, { headers })
       .then((res) => {
         setTranscribedData((oldData) => [...oldData, res.data.transcript]);
         setIsTranscribing(false);

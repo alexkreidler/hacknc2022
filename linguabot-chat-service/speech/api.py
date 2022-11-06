@@ -3,18 +3,12 @@ from google.cloud import speech
 from google.cloud.speech import SpeechRecognitionResult
 import io
 
-from dataclasses import dataclass
-from typing import Union
+from typing import Optional, Union
 
 from fastapi.encoders import jsonable_encoder
 from fastapi import FastAPI, File, Form, UploadFile
 
 from fastapi.middleware.cors import CORSMiddleware
-
-from pydantic import BaseModel
-
-from google.protobuf.json_format import MessageToJson, MessageToDict
-from protobuf_to_dict import protobuf_to_dict
 
 app = FastAPI()
 
@@ -37,7 +31,7 @@ def read_root():
 
 
 @app.post("/transcribe")
-def transcribe_audio(audio_data: bytes = File(), language: str = Form()):
+def transcribe_audio(audio_data: bytes = File(), language: Optional[str] = Form()):
     # content = await audio_data.read()
     client = speech.SpeechClient()
 
@@ -64,7 +58,7 @@ def transcribe_audio(audio_data: bytes = File(), language: str = Form()):
         result_json = SpeechRecognitionResult.to_dict(result)
         out.append(result_json)
 
-
+    print("Handling request, transcript length", len(transcript))
     f = {"transcript": transcript, "details": out}
     # print(f)
     return f
