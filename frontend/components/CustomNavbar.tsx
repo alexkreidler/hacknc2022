@@ -13,7 +13,7 @@ import {
   PopoverContent,
   useColorModeValue,
   useBreakpointValue,
-  useDisclosure,
+  useDisclosure
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
@@ -61,7 +61,7 @@ export default function WithSubnavigation() {
           >
             LinguaBot
           </Text>
-          {/* <Image src='/transparent.png' alt='yes' width={200} height={200}> */}
+          {/* <Image src='/transparent.png' alt='yes' width={100} height={100}> */}
 
           {/* </Image> */}
 

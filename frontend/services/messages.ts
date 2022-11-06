@@ -21,9 +21,10 @@ export interface History {
 /** Sends a chat message */
 export const sendMessage = async (
   msg: string,
-  chatID: string
+  chatID: string,
+  lang: string
 ): Promise<IMessage> => {
-  const msgURL = `${baseURL}/chats/${chatID}/message`;
+  const msgURL = `${baseURL}/chats/${chatID}/message?lang=${lang}`;
   const raw = await fetch(msgURL, {
     method: "POST",
 
@@ -32,6 +33,7 @@ export const sendMessage = async (
       text: msg,
       // }
     }),
+    
     headers: {
       "content-type": "application/json",
     },
@@ -40,7 +42,10 @@ export const sendMessage = async (
 
   const res: MessageResponse = await raw.json();
 
+  console.log("msg res", res);
+  
   const r = res.history?.reverse()[0];
+
   return {
     //   _id: r.id,
     text: r.result_lang,

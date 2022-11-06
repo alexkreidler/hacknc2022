@@ -42,7 +42,7 @@ export default function SocialProfileSimple() {
   const [interimTranscribedData] = useState("");
   const [isRecording, setIsRecording] = useState(false);
   const [isTranscribing, setIsTranscribing] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState("en-us");
+  const [selectedLanguage, setSelectedLanguage] = useState("es");
   const [selectedModel, setSelectedModel] = useState(1);
   const [transcribeTimeout, setTranscribeTimout] = useState(5);
   const [stopTranscriptionSession, setStopTranscriptionSession] =
@@ -185,7 +185,9 @@ export default function SocialProfileSimple() {
           { text: message, sender: "Brendon", date: new Date() },
         ]);
         if (chatID) {
-          sendMessage(message, chatID).then((res) => {
+          sendMessage(message, chatID, selectedLanguage).then((res) => {
+            console.log("got result message", res);
+            
             addMessage((msgs) => [...msgs, res]);
           });
         }
