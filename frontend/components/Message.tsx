@@ -15,7 +15,7 @@ import {
 
 export interface IMessage {
   sender: string;
-  sent: Date;
+  sent: string;
   text: string;
 }
 
@@ -39,7 +39,7 @@ export default function Messsage({message}: { message: IMessage }) {
       >
         {message.text}
       </Text>
-      <Text alignSelf="end" ml={4} size="sm" fontSize={8} color="gray.600" w="fit-content">{message.sent.toLocaleTimeString()}</Text>
+      <Text alignSelf="end" ml={4} size="sm" fontSize={8} color="gray.600" w="fit-content">{message.sent}</Text>
     </Flex>
   );
 }

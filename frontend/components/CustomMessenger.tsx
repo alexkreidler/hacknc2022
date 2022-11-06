@@ -14,6 +14,11 @@ import {
   Flex,
 } from "@chakra-ui/react";
 
+import React, { useState } from 'react';
+
+
+import SendButton from "../components/SendButton"
+
 import Messsage, { IMessage } from "./Message";
 
 export default function SocialProfileSimple({
@@ -28,6 +33,10 @@ export default function SocialProfileSimple({
   // else if(test.color == 'green.400'){
 
   // }
+  function handleSubmit () {
+    messages.push({sender: "Brendon", sent: "11-23-23", text: "What's up"})
+    
+}
   return (
     <Center py={6}>
       <Box
@@ -78,6 +87,7 @@ export default function SocialProfileSimple({
         <Stack mt={8} direction={"row"} spacing={4}>
           {/* put type / bullshit here */}
           <Textarea></Textarea>
+          <SendButton onClick={handleSubmit}></SendButton>
         </Stack>
       </Box>
     </Center>
