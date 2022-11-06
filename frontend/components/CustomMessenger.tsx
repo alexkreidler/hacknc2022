@@ -94,17 +94,18 @@ import {
   }
   function transcribeRecording(recordedBlob) {
     const headers = {
-      "content-type": "multipart/form-data",
+      "Content-Type": "multipart/form-data",
     };
     const formData = new FormData();
     const language = selectedLangRef.current
     const modelSize = modelOptions[selectedModelRef.current];
     console.log(language, modelSize);
     
-    formData.append("language", language)
-    formData.append("model_size", modelSize)
-    // formData.append("audio_data", recordedBlob.blob, 'temp_recording');
-    axios.post("http://0.0.0.0:9000/transcribe", formData, { headers })
+    // formData.append("language", language)
+    // formData.append("model_size", modelSize)
+    formData.append("audio_data", recordedBlob.blob, 'temp_recording');
+    // formData.
+    axios.post("http://0.0.0.0:8000/transcribe", formData, { headers })
       .then((res) => {
         setTranscribedData(oldData => [...oldData, res.data])
         setIsTranscribing(false)
