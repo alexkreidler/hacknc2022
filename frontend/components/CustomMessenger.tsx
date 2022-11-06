@@ -111,6 +111,11 @@ export default function SocialProfileSimple() {
     changeMessage({ ...message, sender: "Brendon", date: "10-22-22" });
     console.log(message);
     addMessage([...messages, message]);
+    changeMessage({
+        text: "",
+        sender: "Brendon",
+        date: "",
+      });
   }
 
   function transcribeRecording(recordedBlob) {
@@ -125,9 +130,10 @@ export default function SocialProfileSimple() {
     formData.append("language", Object.entries(languageCodes).filter(([code, lang]) => lang == selectedLanguage)[0][0]);
     
     // formData.append("model_size", modelSize)
-    formData.append("audio_data", recordedBlob.blob, 'temp_recording');
+    formData.append("audio_data", recordedBlob.blob, "temp_recording");
     // formData.
-    axios.post("http://0.0.0.0:8000/transcribe", formData, { headers })
+    axios
+      .post("http://0.0.0.0:8000/transcribe", formData, { headers })
       .then((res) => {
         setTranscribedData((oldData) => [...oldData, res.data.transcript]);
         setIsTranscribing(false);
@@ -156,9 +162,7 @@ export default function SocialProfileSimple() {
       >
         <Avatar
           size={"xl"}
-          src={
-            "/lingua.png"
-          }
+          src={"/lingua.png"}
           alt={"Avatar Alt"}
           mb={4}
           pos={"relative"}
@@ -191,13 +195,11 @@ export default function SocialProfileSimple() {
           <Text>Voice</Text>
         </Stack>
         <div>
-        <Flex direction="column" w="full">
-          {messages.map((m) => (
-            <Message
-            message={m}
-            ></Message>
-          ))}
-        </Flex>
+          <Flex direction="column" w="full">
+            {messages.map((m) => (
+              <Message message={m}></Message>
+            ))}
+          </Flex>
           {!isText ? (
             <Stack mt={8} direction={"row"} spacing={4}>
               {/* put type / bullshit here */}
@@ -206,6 +208,7 @@ export default function SocialProfileSimple() {
                 onChange={(e) =>
                   changeMessage({ ...message, text: e.target.value })
                 }
+                value={message.text}
               ></Textarea>
               <SendButton onClick={handleClick}></SendButton>
             </Stack>
