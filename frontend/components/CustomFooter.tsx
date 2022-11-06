@@ -67,14 +67,14 @@ import {
         color={useColorModeValue('gray.700', 'gray.200')}>
         <Container
           as={Stack}
-          maxW={'6xl'}
+          maxW={'container.xl'}
           py={4}
           direction={{ base: 'column', md: 'row' }}
           spacing={4}
           justify={{ base: 'center', md: 'space-between' }}
           align={{ base: 'center', md: 'center' }}>
-          <Text>LinguaBot</Text>
-          <Text>© 2022 2ABCD. All rights reserved</Text>
+          <Text fontWeight="semibold">LinguaBot</Text>
+          <Text fontSize={10}>© 2022 abacus. All rights reserved</Text>
           {/* <Stack direction={'row'} spacing={6}>
             <SocialButton label={'Twitter'} href={'#'}>
               <FaTwitter />

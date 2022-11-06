@@ -39,7 +39,7 @@ export default function Home() {
         
         
       </Flex>
-      {/* <CustomFooter /> */}
+      <CustomFooter />
     </Flex>
   )
 }

@@ -216,30 +216,30 @@ export default function SocialProfileSimple() {
           p={6}
           textAlign={"center"}
         >
-          <Avatar
-            size={"xl"}
-            src={"/lingua.png"}
-            alt={"Avatar Alt"}
-            mb={4}
-            pos={"relative"}
-            _after={{
-              content: '""',
-              w: 4,
-              h: 4,
-              bg: "green.300",
-              border: "2px solid white",
-              rounded: "full",
-              pos: "absolute",
-              bottom: 0,
-              right: 3,
-            }}
-          />
+          <VStack>
+            <Avatar
+              size={"md"}
+              src={"/lingua.png"}
+              alt={"Avatar Alt"}
+              pos={"relative"}
+              _after={{
+                content: '""',
+                w: 4,
+                h: 4,
+                bg: "green.300",
+                border: "2px solid white",
+                rounded: "full",
+                pos: "absolute",
+                bottom: 0,
+                right: 3,
+              }}
+            />
+              <Text fontSize={10}>LingaChat</Text>
+          </VStack>
 
-          <Box>
-            <Text>LingaChat</Text>
-          </Box>
           {/* overflowY={'auto',''} maxH="250px" */}
-          <Flex direction="column" w="full" flexGrow={1}>
+          <Flex direction="column" w="full" flexGrow={1} 
+          overflowY="scroll">
             {messages.map((m) => (
               <Message message={m}></Message>
             ))}
@@ -284,20 +284,18 @@ export default function SocialProfileSimple() {
                   />
                 </Box>
 
-                <div>
-                  <h1>{transcribedData.join("\n")}</h1>
-                </div>
-                <IconButton
+                <Button
                   alignSelf={"center"}
-                  width="100px"
+                  // width="100px"
                   aria-label="Call Segun"
-                  icon={<PhoneIcon />}
+                  leftIcon={<PhoneIcon />}
+                  
                   color="#4399e1"
                   size="sm"
                   onClick={toggleRecording}
                 >
-                  {isRecording ? "Stop Recording" : "Record Voice"}
-                </IconButton>
+                  {isRecording ? "Stop" : "Speak"}
+                </Button>
               </Stack>
             )}
           </Box>
