@@ -1,5 +1,6 @@
 
 from google.cloud import speech
+from google.cloud.speech import SpeechRecognitionResult
 import io
 
 from dataclasses import dataclass
@@ -13,6 +14,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from google.protobuf.json_format import MessageToJson, MessageToDict
+from protobuf_to_dict import protobuf_to_dict
 
 app = FastAPI()
 
@@ -51,15 +53,19 @@ def transcribe_audio(audio_data: bytes = File()):
     # Each result is for a consecutive portion of the audio. Iterate through
     # them to get the transcripts for the entire audio file.
     transcript = ""
-    for result in response.results:
+    results: list[SpeechRecognitionResult] = response.results
+    for result in results:
         # The first alternative is the most likely one for this portion.
         chunkT = result.alternatives[0].transcript
         transcript += chunkT
         print(u"Transcript: {}".format(chunkT))
+        result_json = SpeechRecognitionResult.to_json(result)
+        # result_json = protobuf_to_dict(result)
+        print(result_json)
         # json = MessageToJson(result)
         # print(json)
-    result_json = MessageToDict(response.results)
-    print(result_json)
+
+
     return transcript
 
 status = "ok"
