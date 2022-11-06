@@ -21,7 +21,8 @@ import {
     ChevronDownIcon,
     ChevronRightIcon,
   } from '@chakra-ui/icons';
-  
+  import Image from 'next/image'
+
   export default function WithSubnavigation() {
     const { isOpen, onToggle } = useDisclosure();
   
@@ -54,9 +55,12 @@ import {
             <Text
               textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
               fontFamily={'heading'}
-              color={useColorModeValue('gray.800', 'white')}>
+              color={useColorModeValue('yellow.500', 'white')}>
               LinguaBot
             </Text>
+            {/* <Image src='/transparent.png' alt='yes' width={200} height={200}> */}
+
+            {/* </Image> */}
   
             <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
               <DesktopNav />
