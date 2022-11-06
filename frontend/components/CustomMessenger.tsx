@@ -163,14 +163,18 @@ export default function SocialProfileSimple() {
     console.log(language, modelSize);
 
     // formData.append("language", Object.entries(languageCodes).filter(([code, lang]) => lang == selectedLanguage)[0][0]);
+    // console.log(selectedLanguage);
+    
     formData.append("language", selectedLanguage);
     // formData.append("model_size", modelSize)
     formData.append("audio_data", recordedBlob.blob, "temp_recording");
     // formData.
     axios
-      .post("http://localhost:9000/transcribe", formData, { headers })
+      .post(baseURL + "/transcribe", formData, { headers })
       .then((res) => {
         const message = res.data.transcript;
+        console.log(res.data);
+        
         setTranscribedData((oldData) => [...oldData, message]);
         setIsTranscribing(false);
         setIsRecording(false);
@@ -271,6 +275,7 @@ export default function SocialProfileSimple() {
                 <Box w="fit-content" flexGrow={1} alignSelf="center">
                   <ReactMic
                     record={isRecording}
+                    // channelCount={1}
                     className="sound-wave"
                     onStop={onStop}
                     onData={onData}
