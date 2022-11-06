@@ -1,13 +1,13 @@
-#LinguaBot
+# LinguaBot
 ![fshbsdfhj](https://user-images.githubusercontent.com/32823036/200182295-42f4660f-cd66-4ea3-9f01-b48ce1b0b74d.png)
 
-###Language immersion for anyone anywhere
+### Language immersion for anyone anywhere
 
 
 
 
 
-##What this is
+## What this is
 
 This is a chatbot that immerses users in a language through real-time verbal or written conversation with 50+ language options. The user can speak directly to the chatbot or type what they want to say, and the chatbot will respond in both text and speech in the same language used.
 
