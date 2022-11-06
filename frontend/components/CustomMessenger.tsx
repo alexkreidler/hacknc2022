@@ -19,13 +19,9 @@ import React, { useState } from 'react';
 
 import SendButton from "../components/SendButton"
 
-import Messsage, { IMessage } from "./Message";
+import Messsage from "./Message";
 
-export default function SocialProfileSimple({
-  messages,
-}: {
-  messages: IMessage[];
-}) {
+export default function SocialProfileSimple() {
   // if(test.color == 'blue.400'){
   //     test.paddingLeft=700
   //     test.
@@ -33,8 +29,24 @@ export default function SocialProfileSimple({
   // else if(test.color == 'green.400'){
 
   // }
+  const [message, changeMessage] = useState({
+    text: "",
+    sender: "",
+    date: ""
+  })
+    const [messages, addMessage] = useState([{
+        text: "hello",
+        sender: "yes",
+        date: "10-10-10"
+
+    }])
+
   function handleSubmit () {
-    messages.push({sender: "Brendon", sent: "11-23-23", text: "What's up"})
+    
+    changeMessage({...message, sender: "Brendon", date: "10-22-22"})
+    console.log(message)
+    addMessage([...messages, message])
+    // messages.push({sender: "Brendon", sent: "11-23-23", text: "What's up"})
     
 }
   return (
@@ -86,7 +98,7 @@ export default function SocialProfileSimple({
 
         <Stack mt={8} direction={"row"} spacing={4}>
           {/* put type / bullshit here */}
-          <Textarea></Textarea>
+          <Textarea onChange={(e) => changeMessage({...message, text: e.target.value})}></Textarea>
           <SendButton onClick={handleSubmit}></SendButton>
         </Stack>
       </Box>

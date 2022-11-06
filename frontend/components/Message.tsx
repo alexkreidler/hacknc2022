@@ -22,7 +22,7 @@ export interface IMessage {
 const me = "Brendon";
 // bubbleColor={m.sender == me ? "blue" : "green"}
 // bubbleText={m.text}
-export default function Messsage({message}: { message: IMessage }) {
+export default function Messsage({message}) {
   return (
     <Flex direction="column" alignSelf={message.sender == me  ? "end" : "start"}>
       <Text
