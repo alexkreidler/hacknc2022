@@ -37,7 +37,7 @@ export const sendMessage = async (msg: string, chatID: string): Promise<IMessage
 
   const res: MessageResponse = await raw.json();
 
-  const r = res.history.reverse()[0];
+  const r = res.history?.reverse()[0];
   return {
     //   _id: r.id,
     text: r.result_lang,
