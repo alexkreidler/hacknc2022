@@ -22,6 +22,11 @@ import dynamic from "next/dynamic";
 import Message from "./Message";
 import Image from 'next/image'
 import { languageCodes } from "../utils/languageCodes";
+import { IconButton } from '@chakra-ui/react'
+import { PhoneIcon } from "@chakra-ui/icons";
+
+
+
 const ReactMic = dynamic(() => import("react-mic").then((m) => m.ReactMic), {
   ssr: false,
 });
@@ -182,7 +187,11 @@ export default function SocialProfileSimple() {
         <Box>
           <Text>Yes</Text>
         </Box>
-
+        <Flex direction="column" w="full">
+            {messages.map((m) => (
+              <Message message={m}></Message>
+            ))}
+          </Flex>
         <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
           {/* put toggle switch for text/speech here */}
           <Text>Text</Text>
@@ -195,11 +204,7 @@ export default function SocialProfileSimple() {
           <Text>Voice</Text>
         </Stack>
         <div>
-          <Flex direction="column" w="full">
-            {messages.map((m) => (
-              <Message message={m}></Message>
-            ))}
-          </Flex>
+          
           {!isText ? (
             <Stack mt={8} direction={"row"} spacing={4}>
               {/* put type / bullshit here */}
@@ -211,28 +216,34 @@ export default function SocialProfileSimple() {
                 value={message.text}
               ></Textarea>
               <SendButton onClick={handleClick}></SendButton>
+              
             </Stack>
           ) : (
             <Stack>
-              <Button colorScheme="red" size="md" onClick={toggleRecording}>
-                {isRecording ? "Stop Recording" : "Record Voice"}
-              </Button>
-              <div className="recordIllustration">
-                <ReactMic
+              
+              <Box w="fit-content" flexGrow={1} alignSelf="center">
+
+              <ReactMic
                   record={isRecording}
                   className="sound-wave"
                   onStop={onStop}
                   onData={onData}
                   strokeColor="#0d6efd"
-                  backgroundColor="#f6f6ef"
+                  backgroundColor='#ffffff'
                 />
-              </div>
+              </Box>
+              
               <div>
                 <h1>{transcribedData.join("\n")}</h1>
               </div>
+              <IconButton alignSelf={'center'} width="100px" aria-label="Call Segun"  icon={<PhoneIcon />}  colorScheme="blue" size="sm"  onClick={toggleRecording}>
+                {isRecording ? "Stop Recording" : "Record Voice"}
+              </IconButton>
             </Stack>
+            
           )}
         </div>
+        
       </Box>
     </Center>
   );
