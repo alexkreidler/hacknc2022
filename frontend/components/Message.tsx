@@ -47,7 +47,7 @@ export default function Messsage({ message }: { message: IMessage }) {
         color="gray.600"
         w="fit-content"
       >
-        {formatDistanceToNowStrict(message.date)}
+        {message.date ? formatDistanceToNowStrict(message.date) : null}
       </Text>
     </Flex>
   );

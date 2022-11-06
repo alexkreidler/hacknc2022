@@ -29,6 +29,8 @@ import { PhoneIcon } from "@chakra-ui/icons";
 import { arrayBuffer } from "stream/consumers";
 import { Select } from "chakra-react-select";
 import { recentYearsRandomDate } from "../utils/date";
+import { sendMessage } from "../services/messages";
+import { withRetries } from "../utils/retries";
 
 const ReactMic = dynamic(() => import("react-mic").then((m) => m.ReactMic), {
   ssr: false,
@@ -59,14 +61,36 @@ export default function SocialProfileSimple() {
 
   const modelOptions = ["tiny", "base", "small", "medium", "large"];
 
+  const [chatID, setChatID] = useState<string | null>(null);
+
+  const baseURL = "https://linguabot-pc.alexkreidler.com";
+  useEffect(() => {
+    const url = `${baseURL}/chats`;
+
+    withRetries({
+      attempt: fetch(url, {
+        method: "POST",
+      }).then(async (res) => {
+        console.log("req", url, res);
+        const id = (await res.json()).id;
+        console.log("id", id);
+
+        setChatID(id);
+      }),
+    });
+
+    return () => {};
+  }, []);
+
   useEffect(() => {
     // return () => clearInterval(intervalRef.current);
   }, []);
 
   const [message, changeMessage] = useState({
     text: "",
-    sender: "",
-    date: "",
+    sender: "Brendon",
+    date: new Date(),
+    // date: ,
   });
   const [messages, addMessage] = useState([
     {
@@ -116,13 +140,13 @@ export default function SocialProfileSimple() {
   }
 
   function handleClick() {
-    changeMessage({ ...message, sender: "Brendon", date: "10-22-22" });
+    changeMessage({ ...message, sender: "Brendon", date: new Date() });
     console.log(messages.length);
     addMessage([...messages, message]);
     changeMessage({
       text: "",
       sender: "Brendon",
-      date: "",
+      date: new Date(),
     });
     if (messages.length > 5) {
       messages.shift();
@@ -146,10 +170,22 @@ export default function SocialProfileSimple() {
     axios
       .post("http://localhost:9000/transcribe", formData, { headers })
       .then((res) => {
-        setTranscribedData((oldData) => [...oldData, res.data.transcript]);
+        const message = res.data.transcript;
+        setTranscribedData((oldData) => [...oldData, message]);
         setIsTranscribing(false);
         setIsRecording(false);
-        console.log(res.data);
+        // console.log(res.data);
+
+        addMessage((msgs) => [
+          ...msgs,
+          { text: message, sender: "Brendon", date: new Date() },
+        ]);
+        if (chatID) {
+          sendMessage(message, chatID).then((res) => {
+            addMessage((msgs) => [...msgs, res]);
+          });
+        }
+
         // intervalRef.current = setInterval(transcribeInterim, transcribeTimeout * 1000)
       })
       .catch((err) => {
