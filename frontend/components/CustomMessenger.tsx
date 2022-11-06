@@ -20,12 +20,11 @@ import React, { useState, useEffect, useRef } from "react";
 import SendButton from "./SendButton";
 import dynamic from "next/dynamic";
 import Message from "./Message";
-import Image from 'next/image'
+import Image from "next/image";
 import { languageCodes } from "../utils/languageCodes";
-import { IconButton } from '@chakra-ui/react'
+import { IconButton } from "@chakra-ui/react";
 import { PhoneIcon } from "@chakra-ui/icons";
-
-
+import { arrayBuffer } from "stream/consumers";
 
 const ReactMic = dynamic(() => import("react-mic").then((m) => m.ReactMic), {
   ssr: false,
@@ -114,13 +113,16 @@ export default function SocialProfileSimple() {
 
   function handleClick() {
     changeMessage({ ...message, sender: "Brendon", date: "10-22-22" });
-    console.log(message);
+    console.log(messages.length);
     addMessage([...messages, message]);
     changeMessage({
-        text: "",
-        sender: "Brendon",
-        date: "",
-      });
+      text: "",
+      sender: "Brendon",
+      date: "",
+    });
+    if (messages.length > 5) {
+      messages.shift();
+    }
   }
 
   function transcribeRecording(recordedBlob) {
@@ -131,9 +133,14 @@ export default function SocialProfileSimple() {
     const language = selectedLangRef.current;
     const modelSize = modelOptions[selectedModelRef.current];
     console.log(language, modelSize);
-    
-    formData.append("language", Object.entries(languageCodes).filter(([code, lang]) => lang == selectedLanguage)[0][0]);
-    
+
+    formData.append(
+      "language",
+      Object.entries(languageCodes).filter(
+        ([code, lang]) => lang == selectedLanguage
+      )[0][0]
+    );
+
     // formData.append("model_size", modelSize)
     formData.append("audio_data", recordedBlob.blob, "temp_recording");
     // formData.
@@ -187,11 +194,12 @@ export default function SocialProfileSimple() {
         <Box>
           <Text>Yes</Text>
         </Box>
-        <Flex direction="column" w="full">
-            {messages.map((m) => (
-              <Message message={m}></Message>
-            ))}
-          </Flex>
+        {/* overflowY={'auto',''} maxH="250px" */}
+        <Flex  direction="column" w="full">
+          {messages.map((m) => (
+            <Message message={m}></Message>
+          ))}
+        </Flex>
         <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
           {/* put toggle switch for text/speech here */}
           <Text>Text</Text>
@@ -204,46 +212,51 @@ export default function SocialProfileSimple() {
           <Text>Voice</Text>
         </Stack>
         <div>
-          
           {!isText ? (
             <Stack mt={8} direction={"row"} spacing={4}>
               {/* put type / bullshit here */}
-
-              <Textarea
-                onChange={(e) =>
-                  changeMessage({ ...message, text: e.target.value })
-                }
-                value={message.text}
-              ></Textarea>
-              <SendButton onClick={handleClick}></SendButton>
               
+                <Textarea
+                  resize={"none"}
+                  onChange={(e) =>
+                    changeMessage({ ...message, text: e.target.value })
+                  }
+                  value={message.text}
+                ></Textarea>
+              
+
+              <SendButton onClick={handleClick}></SendButton>
             </Stack>
           ) : (
             <Stack>
-              
               <Box w="fit-content" flexGrow={1} alignSelf="center">
-
-              <ReactMic
+                <ReactMic
                   record={isRecording}
                   className="sound-wave"
                   onStop={onStop}
                   onData={onData}
                   strokeColor="#0d6efd"
-                  backgroundColor='#ffffff'
+                  backgroundColor="#ffffff"
                 />
               </Box>
-              
+
               <div>
                 <h1>{transcribedData.join("\n")}</h1>
               </div>
-              <IconButton alignSelf={'center'} width="100px" aria-label="Call Segun"  icon={<PhoneIcon />}  colorScheme="blue" size="sm"  onClick={toggleRecording}>
+              <IconButton
+                alignSelf={"center"}
+                width="100px"
+                aria-label="Call Segun"
+                icon={<PhoneIcon />}
+                color="#4399e1"
+                size="sm"
+                onClick={toggleRecording}
+              >
                 {isRecording ? "Stop Recording" : "Record Voice"}
               </IconButton>
             </Stack>
-            
           )}
         </div>
-        
       </Box>
     </Center>
   );
